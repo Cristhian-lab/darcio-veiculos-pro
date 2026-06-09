@@ -4,7 +4,7 @@
   const CONFIG = {
     loja: "Dárcio Veículos",
     slogan: "Compra · Venda · Troca · Financiamento",
-    whatsappPrincipal: "5575988698486",
+    whatsappPrincipal: "557591235618",
     whatsappSecundario: "5575991235618",
     telefonePrincipal: "75 98869-8486",
     telefoneSecundario: "75 99123-5618",
