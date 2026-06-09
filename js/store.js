@@ -6,7 +6,7 @@
     slogan: "Compra · Venda · Troca · Financiamento",
     whatsappPrincipal: "557591235618",
     whatsappSecundario: "5575991235618",
-    telefonePrincipal: "75 9123-5618",
+    telefonePrincipal: "75 99123-5618",
     telefoneSecundario: "75 99123-5618",
     endereco: "Bahia",
     adminUser: "admin",
