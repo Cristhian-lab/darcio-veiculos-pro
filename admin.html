@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Dárcio Veículos | Painel Admin</title>
+  <link rel="icon" href="assets/logo-darcio.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/store.js" defer></script>
+  <script src="js/admin.js" defer></script>
+</head>
+<body data-page="admin">
+  <div class="admin-shell">
+    <aside class="sidebar glass">
+      <a class="brand" href="admin.html" aria-label="Painel Dárcio Veículos">
+        <img src="assets/logo-darcio.png" alt="Logo Dárcio Veículos" />
+        <span>
+          <strong>Dárcio Veículos</strong>
+          <small>Admin do estoque</small>
+        </span>
+      </a>
+
+      <nav class="admin-menu" aria-label="Menu do painel">
+        <button class="menu-link active" data-view="dashboard" type="button">Dashboard</button>
+        <button class="menu-link" data-view="cadastro" type="button">Cadastrar veículo</button>
+        <button class="menu-link" data-view="veiculos" type="button">Veículos</button>
+        <button class="menu-link" data-view="movimentos" type="button">Movimentações</button>
+        <button class="menu-link" data-view="backup" type="button">Backup</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="secondary full" href="index.html" target="_blank" rel="noopener">Ver catálogo</a>
+        <button class="ghost full" id="logoutBtn" type="button">Sair do painel</button>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Alternar tema">☾</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar glass">
+        <div>
+          <span class="eyebrow">Painel administrativo</span>
+          <h1 id="adminTitle">Dashboard</h1>
+        </div>
+        <button class="primary" id="newVehicleShortcut" type="button">+ Novo veículo</button>
+      </header>
+
+      <section class="admin-view is-visible" id="view-dashboard">
+        <div class="stats-grid">
+          <article class="stat-card glass"><span>Total</span><strong id="statTotal">0</strong><small>veículos cadastrados</small></article>
+          <article class="stat-card glass"><span>Disponíveis</span><strong id="statAvailable">0</strong><small>prontos para venda</small></article>
+          <article class="stat-card glass"><span>Reservados</span><strong id="statReserved">0</strong><small>em negociação</small></article>
+          <article class="stat-card glass"><span>Vendidos</span><strong id="statSold">0</strong><small>histórico de vendas</small></article>
+          <article class="stat-card glass"><span>Valor anunciado</span><strong id="statStockValue">R$ 0</strong><small>estoque ativo</small></article>
+          <article class="stat-card glass"><span>Lucro estimado</span><strong id="statProfit">R$ 0</strong><small>sobre veículos ativos</small></article>
+        </div>
+
+        <div class="dashboard-layout">
+          <article class="panel glass">
+            <div class="panel-title">
+              <h2>Status do estoque</h2>
+              <span>tempo real</span>
+            </div>
+            <div id="statusBars" class="status-bars"></div>
+          </article>
+
+          <article class="panel glass">
+            <div class="panel-title">
+              <h2>Resumo financeiro</h2>
+              <span>valores</span>
+            </div>
+            <div class="finance-list">
+              <div><span>Investimento ativo</span><strong id="investmentValue">R$ 0</strong></div>
+              <div><span>Ticket médio anunciado</span><strong id="averageTicket">R$ 0</strong></div>
+              <div><span>Maior valor anunciado</span><strong id="highestPrice">R$ 0</strong></div>
+              <div><span>Menor valor anunciado</span><strong id="lowestPrice">R$ 0</strong></div>
+            </div>
+          </article>
+
+          <article class="panel glass wide">
+            <div class="panel-title">
+              <h2>Últimas movimentações</h2>
+              <span>auditoria</span>
+            </div>
+            <div id="recentMovements" class="timeline"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-view" id="view-cadastro">
+        <div class="form-page-grid">
+          <form class="panel glass vehicle-form" id="vehicleForm">
+            <div class="panel-title">
+              <h2 id="formTitle">Novo veículo</h2>
+              <span id="formMode">cadastro</span>
+            </div>
+
+            <input id="vehicleId" type="hidden" />
+
+            <div class="form-grid">
+              <label>Marca
+                <input id="brand" type="text" placeholder="Ex.: Toyota" required />
+              </label>
+              <label>Modelo
+                <input id="model" type="text" placeholder="Ex.: Corolla" required />
+              </label>
+              <label>Versão
+                <input id="version" type="text" placeholder="Ex.: XEi 2.0" />
+              </label>
+              <label>Ano
+                <input id="year" type="number" min="1950" max="2100" placeholder="2024" required />
+              </label>
+              <label>Valor de compra
+                <input id="purchasePrice" type="number" min="0" step="100" placeholder="90000" />
+              </label>
+              <label>Valor anunciado
+                <input id="price" type="number" min="0" step="100" placeholder="99900" required />
+              </label>
+              <label>Quilometragem
+                <input id="mileage" type="number" min="0" step="1" placeholder="32000" required />
+              </label>
+              <label>Cor
+                <input id="color" type="text" placeholder="Branco" required />
+              </label>
+              <label>Placa
+                <input id="plate" type="text" placeholder="ABC1D23" />
+              </label>
+              <label>Status
+                <select id="status" required>
+                  <option>Disponível</option>
+                  <option>Reservado</option>
+                  <option>Vendido</option>
+                  <option>Manutenção</option>
+                </select>
+              </label>
+              <label>Combustível
+                <select id="fuel" required>
+                  <option>Flex</option>
+                  <option>Gasolina</option>
+                  <option>Diesel</option>
+                  <option>Híbrido</option>
+                  <option>Elétrico</option>
+                </select>
+              </label>
+              <label>Câmbio
+                <select id="transmission" required>
+                  <option>Automático</option>
+                  <option>Manual</option>
+                  <option>CVT</option>
+                </select>
+              </label>
+              <label>Carroceria
+                <select id="bodyType" required>
+                  <option>Sedan</option>
+                  <option>Hatch</option>
+                  <option>SUV</option>
+                  <option>Picape</option>
+                  <option>Coupe</option>
+                  <option>Minivan</option>
+                </select>
+              </label>
+              <label>Imagem do veículo
+                <input id="image" type="url" placeholder="Cole a URL da imagem" />
+              </label>
+              <label>Exibir no catálogo?
+                <select id="isPublic">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </label>
+              <label>Data de entrada
+                <input id="entryDate" type="date" />
+              </label>
+            </div>
+
+            <label>Opcionais
+              <input id="features" type="text" placeholder="Airbag, multimídia, câmera de ré, bancos em couro" />
+            </label>
+
+            <label>Descrição
+              <textarea id="description" rows="4" placeholder="Estado de conservação, revisões, diferenciais, condições de financiamento..."></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button class="primary" type="submit">Salvar veículo</button>
+              <button class="secondary" id="clearFormBtn" type="button">Limpar</button>
+            </div>
+          </form>
+
+          <article class="panel glass helper-panel">
+            <div class="panel-title">
+              <h2>Publicação inteligente</h2>
+              <span>catálogo</span>
+            </div>
+            <p>Ao marcar um veículo como <strong>Disponível</strong> ou <strong>Reservado</strong>, ele pode aparecer na vitrine do cliente. Veículos <strong>Vendidos</strong> ou em <strong>Manutenção</strong> são ocultados automaticamente.</p>
+            <p>Use o campo <strong>Exibir no catálogo?</strong> quando quiser manter um carro cadastrado, mas fora da área pública.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-view" id="view-veiculos">
+        <div class="inventory-grid">
+          <div class="panel glass table-panel">
+            <div class="panel-title stacked-title">
+              <div>
+                <h2>Estoque completo</h2>
+                <span id="adminCount">0 registros</span>
+              </div>
+              <div class="mini-filters">
+                <input id="adminSearch" type="search" placeholder="Buscar no estoque..." />
+                <select id="adminStatusFilter">
+                  <option value="todos">Todos</option>
+                  <option>Disponível</option>
+                  <option>Reservado</option>
+                  <option>Vendido</option>
+                  <option>Manutenção</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Veículo</th>
+                    <th>Valores</th>
+                    <th>Status</th>
+                    <th>Catálogo</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="vehicleTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-view" id="view-movimentos">
+        <div class="movement-grid">
+          <form class="panel glass movement-form" id="movementForm">
+            <div class="panel-title">
+              <h2>Nova movimentação</h2>
+              <span>histórico</span>
+            </div>
+            <label>Veículo
+              <select id="movementVehicle" required></select>
+            </label>
+            <label>Tipo
+              <select id="movementType" required>
+                <option>Entrada</option>
+                <option>Reserva</option>
+                <option>Venda</option>
+                <option>Manutenção</option>
+                <option>Disponibilização</option>
+                <option>Saída</option>
+                <option>Edição</option>
+              </select>
+            </label>
+            <label>Observação
+              <textarea id="movementNote" rows="5" placeholder="Ex.: cliente reservou, veículo vendido, revisão finalizada..."></textarea>
+            </label>
+            <button class="primary full" type="submit">Registrar movimentação</button>
+          </form>
+
+          <div class="panel glass table-panel">
+            <div class="panel-title">
+              <h2>Histórico completo</h2>
+              <span id="movementCount">0 registros</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Veículo</th>
+                    <th>Tipo</th>
+                    <th>Observação</th>
+                  </tr>
+                </thead>
+                <tbody id="movementTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-view" id="view-backup">
+        <div class="backup-grid">
+          <article class="panel glass">
+            <div class="panel-title">
+              <h2>Exportar dados</h2>
+              <span>JSON</span>
+            </div>
+            <p>Gere um backup com veículos e movimentações salvos no navegador.</p>
+            <button class="primary" id="exportBtn" type="button">Exportar backup</button>
+          </article>
+
+          <article class="panel glass">
+            <div class="panel-title">
+              <h2>Importar dados</h2>
+              <span>restaurar</span>
+            </div>
+            <p>Importe um arquivo JSON exportado por este painel.</p>
+            <label class="secondary import-box" for="importInput">Selecionar arquivo JSON</label>
+            <input id="importInput" type="file" accept="application/json" hidden />
+          </article>
+
+          <article class="panel glass danger-panel">
+            <div class="panel-title">
+              <h2>Restaurar demonstração</h2>
+              <span>cuidado</span>
+            </div>
+            <p>Apaga os dados atuais do navegador e recarrega os veículos de exemplo.</p>
+            <button class="danger-button" id="resetDemoBtn" type="button">Restaurar dados de exemplo</button>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

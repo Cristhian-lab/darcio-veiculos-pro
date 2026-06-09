@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Dárcio Veículos | Login Admin</title>
+  <link rel="icon" href="assets/logo-darcio.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/store.js" defer></script>
+  <script src="js/login.js" defer></script>
+</head>
+<body data-page="login">
+  <main class="login-page">
+    <section class="login-card glass reveal">
+      <a class="brand centered" href="index.html" aria-label="Voltar ao catálogo">
+        <img src="assets/logo-darcio.png" alt="Logo Dárcio Veículos" />
+        <span>
+          <strong>Dárcio Veículos</strong>
+          <small>Painel administrativo</small>
+        </span>
+      </a>
+
+      <div class="login-copy">
+        <span class="eyebrow">Acesso restrito</span>
+        <h1>Entrar no painel</h1>
+        <p>Área exclusiva para cadastrar veículos, acompanhar estatísticas e controlar movimentações do estoque.</p>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label for="username">Usuário
+          <input id="username" type="text" autocomplete="username" placeholder="admin" required />
+        </label>
+        <label for="password">Senha
+          <input id="password" type="password" autocomplete="current-password" placeholder="1234" required />
+        </label>
+        <button class="primary full" type="submit">Entrar agora</button>
+      </form>
+
+      <p class="login-helper">Demonstração: usuário <strong>admin</strong> e senha <strong>1234</strong>.</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

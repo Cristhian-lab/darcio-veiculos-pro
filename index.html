@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catálogo online da Dárcio Veículos com carros para compra, venda, troca e financiamento." />
+  <title>Dárcio Veículos | Catálogo</title>
+  <link rel="icon" href="assets/logo-darcio.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/store.js" defer></script>
+  <script src="js/catalogo.js" defer></script>
+</head>
+<body data-page="catalogo">
+  <div class="public-shell">
+    <header class="site-header glass">
+      <a class="brand" href="index.html" aria-label="Página inicial Dárcio Veículos">
+        <img src="assets/logo-darcio.png" alt="Logo Dárcio Veículos" />
+        <span>
+          <strong>Dárcio Veículos</strong>
+          <small>Compra · Venda · Troca · Financiamento</small>
+        </span>
+      </a>
+
+      <nav class="public-nav" aria-label="Navegação do catálogo">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#sobre">Sobre</a>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Alternar tema">☾</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero client-hero">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Catálogo oficial</span>
+          <h1>Seu próximo carro com atendimento direto no WhatsApp.</h1>
+          <p>
+            Escolha um veículo, veja os detalhes completos e fale com a loja com uma mensagem já pronta sobre o modelo escolhido.
+          </p>
+          <div class="hero-actions">
+            <a class="primary" href="#catalogo">Ver veículos</a>
+            <a class="secondary" id="heroWhatsapp" href="#" target="_blank" rel="noopener">Falar com a loja</a>
+          </div>
+          <div class="pill-row" aria-label="Serviços da loja">
+            <span>😍 Realize seu sonho</span>
+            <span>🚘 Compra e venda</span>
+            <span>🔁 Troca</span>
+            <span>💳 Financiamento</span>
+          </div>
+        </div>
+
+        <div class="hero-media reveal">
+          <img src="assets/logo-darcio.png" alt="Dárcio Veículos" class="hero-logo" />
+          <div class="hero-card floating">
+            <small>Veículos anunciados</small>
+            <strong id="heroPublicCount">0</strong>
+            <span>disponíveis no catálogo</span>
+          </div>
+          <div class="hero-card compact-card">
+            <small>Atendimento</small>
+            <strong id="heroPhone">75 98869-8486</strong>
+            <span>WhatsApp direto</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="catalogo">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Vitrine</span>
+          <h2>Carros em destaque</h2>
+          <p>Use os filtros para encontrar por marca, modelo, ano, preço ou quilometragem.</p>
+        </div>
+
+        <div class="filters glass reveal" role="search">
+          <label class="search-field" for="searchInput">
+            <span>Buscar veículo</span>
+            <input id="searchInput" type="search" placeholder="Ex.: Civic, Corolla, SUV, branco..." autocomplete="off" />
+          </label>
+
+          <label for="brandFilter">
+            <span>Marca</span>
+            <select id="brandFilter"></select>
+          </label>
+
+          <label for="priceFilter">
+            <span>Preço</span>
+            <select id="priceFilter">
+              <option value="todos">Todos</option>
+              <option value="ate-80000">Até R$ 80 mil</option>
+              <option value="80000-120000">R$ 80 a 120 mil</option>
+              <option value="120000-160000">R$ 120 a 160 mil</option>
+              <option value="acima-160000">Acima de R$ 160 mil</option>
+            </select>
+          </label>
+
+          <label for="sortFilter">
+            <span>Ordenar</span>
+            <select id="sortFilter">
+              <option value="recentes">Mais recentes</option>
+              <option value="menor-preco">Menor preço</option>
+              <option value="maior-preco">Maior preço</option>
+              <option value="ano">Ano mais novo</option>
+              <option value="km">Menor KM</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="result-line">
+          <span id="resultCount">0 veículos encontrados</span>
+          <button class="text-button" id="clearFilters" type="button">Limpar filtros</button>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid"></div>
+        <div class="empty-state" id="emptyCatalog" hidden>
+          <strong>Nenhum veículo encontrado.</strong>
+          <p>Tente limpar os filtros ou entre em contato com a loja para consultar novas oportunidades.</p>
+        </div>
+      </section>
+
+      <section class="section about-public" id="sobre">
+        <div class="about-panel glass reveal">
+          <div>
+            <span class="eyebrow">Dárcio Veículos</span>
+            <h2>Atendimento focado em compra, venda, troca e financiamento.</h2>
+            <p>
+              A vitrine online foi feita para o cliente navegar com facilidade, abrir os detalhes do veículo e iniciar o atendimento no WhatsApp sem precisar digitar tudo manualmente.
+            </p>
+          </div>
+          <div class="contact-stack">
+            <a class="contact-card" id="aboutWhatsapp" href="#" target="_blank" rel="noopener">
+              <span>WhatsApp principal</span>
+              <strong>75 98869-8486</strong>
+            </a>
+            <div class="contact-card">
+              <span>Também atendemos</span>
+              <strong>75 99123-5618</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
